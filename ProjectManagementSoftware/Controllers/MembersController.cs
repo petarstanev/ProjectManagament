@@ -14,7 +14,27 @@ namespace ProjectManagementSoftware.Controllers
     {
         private Login db = new Login();
 
-        // GET: Members
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(Member member)
+        {
+            if (ModelState.IsValid)
+            {
+                member.DateCreated = DateTime.Now;
+                db.Members.Add(member);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(member);
+        }
+
+
+        // Loginor redirect
         public ActionResult Index()
         {
             return View(db.Members.ToList());

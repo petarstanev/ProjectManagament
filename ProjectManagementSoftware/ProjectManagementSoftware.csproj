@@ -135,6 +135,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710011134526_InitialCreate.cs" />
+    <Compile Include="Migrations\201710011134526_InitialCreate.Designer.cs">
+      <DependentUpon>201710011134526_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710011245195_Added_first_Name.cs" />
+    <Compile Include="Migrations\201710011245195_Added_first_Name.Designer.cs">
+      <DependentUpon>201710011245195_Added_first_Name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710011250217_Added_datecreated.cs" />
+    <Compile Include="Migrations\201710011250217_Added_datecreated.Designer.cs">
+      <DependentUpon>201710011250217_Added_datecreated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,8 +196,19 @@
     <Content Include="Views\Members\Details.cshtml" />
     <Content Include="Views\Members\Edit.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\Members\Register.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201710011134526_InitialCreate.resx">
+      <DependentUpon>201710011134526_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710011245195_Added_first_Name.resx">
+      <DependentUpon>201710011245195_Added_first_Name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710011250217_Added_datecreated.resx">
+      <DependentUpon>201710011250217_Added_datecreated.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

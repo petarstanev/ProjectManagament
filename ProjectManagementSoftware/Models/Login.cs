@@ -15,8 +15,11 @@ namespace ProjectManagementSoftware.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<Login>(null);
+            base.OnModelCreating(modelBuilder);
         }
 
-        public System.Data.Entity.DbSet<Models.Member> Members { get; set; }
+        public DbSet<Member> Members { get; set; }
+
     }
 }
