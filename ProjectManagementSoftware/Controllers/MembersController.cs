@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ProjectManagementSoftware.Models;
 
 namespace ProjectManagementSoftware.Controllers
@@ -13,6 +14,16 @@ namespace ProjectManagementSoftware.Controllers
     public class MembersController : Controller
     {
         private Login db = new Login();
+
+        // Loginor redirect
+        public ActionResult Index()
+        {
+            if (Session["UserEmail"] != null)
+            {
+                return View(db.Members.ToList());
+            }
+            return View(new List<Member>());
+        }
 
         public ActionResult Register()
         {
@@ -33,12 +44,32 @@ namespace ProjectManagementSoftware.Controllers
             return View(member);
         }
 
-
-        // Loginor redirect
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Login()
         {
-            return View(db.Members.ToList());
+            return View();
         }
+
+        [HttpPost]
+        public ActionResult Login(Member member)
+        {
+            if (ModelState.IsValid)
+            {
+                Member foundMember = db.Members.FirstOrDefault(m => m.Email == member.Email && m.Password == member.Password);
+
+                if (foundMember == null)
+                {
+                    ModelState.AddModelError("", "Wrong username and password");
+                    return View(member);
+                }
+                //FormsAuthentication.SetAuthCookie(foundMember.Email,false);
+                Session["UserEmail"] = foundMember.Email;
+                return RedirectToAction("Index");
+
+            }
+            return View(member);
+        }
+
 
         // GET: Members/Details/5
         public ActionResult Details(int? id)
