@@ -70,6 +70,20 @@ namespace ProjectManagementSoftware.Controllers
             return View(member);
         }
 
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("Logout")]
+        public ActionResult LogoutMember()
+        {
+            Session["UserEmail"] = null;
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Members/Details/5
         public ActionResult Details(int? id)
