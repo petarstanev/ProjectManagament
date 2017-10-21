@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using ProjectManagementSoftware.Helpers;
 using ProjectManagementSoftware.Models;
 
 namespace ProjectManagementSoftware.Controllers
@@ -18,7 +19,7 @@ namespace ProjectManagementSoftware.Controllers
         // Loginor redirect
         public ActionResult Index()
         {
-            if (Session["UserEmail"] != null)
+            if (User.Identity.IsAuthenticated )
             {
                 return View(db.Members.ToList());
             }
@@ -36,6 +37,7 @@ namespace ProjectManagementSoftware.Controllers
             if (ModelState.IsValid)
             {
                 member.DateCreated = DateTime.Now;
+                member.PasswordHash = PasswordHashing.Hash(member.Password);
                 db.Members.Add(member);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -55,17 +57,16 @@ namespace ProjectManagementSoftware.Controllers
         {
             if (ModelState.IsValid)
             {
-                Member foundMember = db.Members.FirstOrDefault(m => m.Email == member.Email && m.Password == member.Password);
+                member.PasswordHash = PasswordHashing.Hash(member.Password);
+                Member foundMember = db.Members.FirstOrDefault(m => m.Email == member.Email && m.PasswordHash == member.PasswordHash);
 
-                if (foundMember == null)
+                if (foundMember != null)
                 {
-                    ModelState.AddModelError("", "Wrong username and password");
-                    return View(member);
+                    Session["UserEmail"] = foundMember.Email;
+                    FormsAuthentication.SetAuthCookie(member.Email, false);
+                    return RedirectToAction("Index");
                 }
-                //FormsAuthentication.SetAuthCookie(foundMember.Email,false);
-                Session["UserEmail"] = foundMember.Email;
-                return RedirectToAction("Index");
-
+                ModelState.AddModelError("", "Wrong username and password");
             }
             return View(member);
         }
@@ -80,7 +81,7 @@ namespace ProjectManagementSoftware.Controllers
         [ActionName("Logout")]
         public ActionResult LogoutMember()
         {
-            Session["UserEmail"] = null;
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index");
         }
 

@@ -135,6 +135,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PasswordHashing.cs" />
     <Compile Include="Migrations\201710011134526_InitialCreate.cs" />
     <Compile Include="Migrations\201710011134526_InitialCreate.Designer.cs">
       <DependentUpon>201710011134526_InitialCreate.cs</DependentUpon>
@@ -146,6 +147,10 @@
     <Compile Include="Migrations\201710011250217_Added_datecreated.cs" />
     <Compile Include="Migrations\201710011250217_Added_datecreated.Designer.cs">
       <DependentUpon>201710011250217_Added_datecreated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710211712317_testasdad.cs" />
+    <Compile Include="Migrations\201710211712317_testasdad.Designer.cs">
+      <DependentUpon>201710211712317_testasdad.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Login.cs" />
@@ -209,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710011250217_Added_datecreated.resx">
       <DependentUpon>201710011250217_Added_datecreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710211712317_testasdad.resx">
+      <DependentUpon>201710211712317_testasdad.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
